@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="bower_components/reset-css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="js/app.js"></script>
+
+</head>
+<body>
+	<div ng-controller="first">
+		<ul>
+			<li>
+				tom: 性别 {{formateGender(tom.gender)}}
+			</li>
+		</ul>
+		<button ng-click="add()">添加数组</button>
+		<ul>
+		arr1
+			<li ng-repeat="item in arr1">
+				{{item}}
+			</li>
+		</ul>
+		<ul>
+			arr2
+			<li ng-repeat='item in arr2 track by $index'>{{item}}</li>
+		</ul>
+		<ul>
+			arr3 多维数组
+			<li ng-repeat="childArr in arr3 track by $index">
+				{{$index}}
+				<ul>
+					<li ng-repeat="item in childArr track by $index">{{item}}</li>
+				</ul>
+			</li>
+		</ul>
+
+		<ul>
+			arr4 二维数组，元素是对象结构
+			<li ng-repeat="person in arr4">
+				{{person.name}}======={{person.age}}
+			</li>
+		</ul>
+
+		<ul>
+			遍历对象的属性
+			<li ng-repeat="(key, value) in obj">{{key}}:{{value}}</li>
+		</ul>
+	</div>
+	<h2>数据监控</h2>
+	<div ng-controller="ctrl2">
+		<input type="button" value="增加" ng-click="changeA()">
+		<input type="button" value="addItem" ng-click="addItem()">
+	</div>
+
+
+	<h2>样式的数据绑定</h2>
+	<div ng-controller="ctrl3">
+		<input type="text" ng-model='x'>
+		<ul>
+			<button ng-disabled="!selectedItem">有选项的时候</button>
+			<button ng-disabled="selectedItem">没有选项的时候</button>
+			<li ng-repeat="item in items" ng-style={'font-size':x+'px'} ng-class="{true:'list-group-item active', false: 'list-group-item'}[item==selectedItem]" ng-click="select(item)">
+				{{item.title}}
+			</li>
+		</ul>
+	</div>
+
+	<h2>数据联动</h2>
+	<div ng-controller="ctrl4">
+		<ul>
+			<li ng-repeat="province in provinceArr" ng-class="{true:'list-item active',false:'list-item'}[province == selectedProvince]" ng-click="selectProvice(province)">{{province}}</li>
+		</ul>
+		<ul>
+			<h2>选择后的city</h2>
+			<li ng-repeat="city in cityArr" ng-class="{true:'list-item active',false:'list-item'}[city==selectedCity]" ng-click='selectCity(city)'>
+				{{city}}
+			</li>
+		</ul>
+		<select id="" ng-model='selectedProvince' ng-options="province for province in provinceArr"></select>
+		<select name="" id="" ng-model='selectedCity' ng-options="city for city in cityArr"></select>
+	</div>
+
+	<!-- 综合例子 -->
+	<div class="panel panel-default" ng-controller="formCtrl">
+		<div class="panel-heading">员工详细信息</div>
+		<div class="panel-body">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">姓名</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" placeholder="姓名" ng-model='editing.name' ng-readonly="!editing">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">性别</label>
+					<div class="col-sm-8">
+						<label class="radio-inline">
+							<input type="radio" name="genderRadioGroup" id="" value='1' ng-disabled="!editing" ng-model='editing.gender'>
+							男
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="genderRadioGroup" id="" value='0' ng-disabled="!editing" ng-model='editing.gender'>
+							女
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-sm-2 control-label">
+						出生地
+					</label>
+					<div class="col-sm-4">
+						<select name="" id="" class="form-control" ng-model='editing.province' ng-disabled="!editing" ng-options="province in provinceArr"></select>
+					</div>
+					<div class="col-sm-4">
+						<select name="" id="" class="form-control" ng-model='editing.city' ng-disabled="!editing" ng-options="city in cityArr"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-sm-2 control-label">民族</label>
+					<div class="col-sm-8">
+							<label for="" class="radio-inline">
+							<input type="radio" value="no" name="" id="" ng-model='editing.minzu' ng-disabled="!editing">汉族
+						</label>
+						<label for="" class="radio-inline">
+							<input type="radio" name="" id="" ng-disabled="!editing" ng-model='editing.minzu' value='yes'>少数民族
+						</label>
+					</div>
+				</div>
+				<div class="col-sm-offset-2 col-sm-8" ng-hide="editing">
+					<button class="btn btn-default" ng-click='create()'>新增</button>
+					<button class="btn btn-default" ng-click='xiugai()'>修改</button>
+					<button class="btn btn-default" ng-click='delete()'>修改</button>
+				</div>
+				<div class="col-sm-8 col-sm-offset-2" ng-show="editing">
+					<button class="btn btn-default" ng-click="ok()" ng-disabled="okDisabled()">确定</button>
+					<button class="btn btn-default" ng-click="ok()" ng-disabled="cancle()">取消</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
