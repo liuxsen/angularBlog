@@ -92,20 +92,21 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">姓名</label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" placeholder="姓名" ng-model='editing.name' ng-readonly="!editing">
+						<input type="text" class="form-control" placeholder="姓名" ng-disabled="!editing" ng-model='editingCon.name'>
 					</div>
 				</div>
-				<div class="form-group">
+				 <div class="form-group">
 					<label class="col-sm-2 control-label">性别</label>
 					<div class="col-sm-8">
 						<label class="radio-inline">
-							<input type="radio" name="genderRadioGroup" id="" value='1' ng-disabled="!editing" ng-model='editing.gender'>
+							<input type="radio" name="genderRadioGroup" id="" value='1' ng-disabled="!editing" ng-model='editingCon.gender' ng-click="selectGender(editingCon.gender)">
 							男
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="genderRadioGroup" id="" value='0' ng-disabled="!editing" ng-model='editing.gender'>
+							<input type="radio" name="genderRadioGroup" id="" value='0' ng-disabled="!editing" ng-model='editingCon.gender' ng-click="selectGender(editingCon.gender)">
 							女
 						</label>
+						<div>{{selectGender(editingCon.gender)}}</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -113,23 +114,27 @@
 						出生地
 					</label>
 					<div class="col-sm-4">
-						<select name="" id="" class="form-control" ng-model='editing.province' ng-disabled="!editing" ng-options="province in provinceArr"></select>
+						<select name="" id="" class="form-control" ng-model='editingCon.province' ng-disabled="!editing" ng-options="province for province in provinceArr" ng-click="selecteProvince(editingCon.province)"></select>
 					</div>
+					{{editingCon.province}}
 					<div class="col-sm-4">
-						<select name="" id="" class="form-control" ng-model='editing.city' ng-disabled="!editing" ng-options="city in cityArr"></select>
+						<select name="" id="" class="form-control" ng-model='editingCon.city' ng-disabled="!editing" ng-options="city for city in cityArr"></select>
 					</div>
+					{{editingCon.city}}
 				</div>
 				<div class="form-group">
 					<label for="" class="col-sm-2 control-label">民族</label>
 					<div class="col-sm-8">
 							<label for="" class="radio-inline">
-							<input type="radio" value="no" name="" id="" ng-model='editing.minzu' ng-disabled="!editing">汉族
+							<input type="radio" value="no" name="" id="" ng-model='editingCon.minzu' ng-disabled="!editing" ng-click='selectMinzu(editing.minzu)'>汉族
 						</label>
 						<label for="" class="radio-inline">
-							<input type="radio" name="" id="" ng-disabled="!editing" ng-model='editing.minzu' value='yes'>少数民族
+							<input type="radio" name="" id="" ng-disabled="!editing" ng-model='editingCon.minzu' value='yes' ng-click='selectMinzu(editing.minzu)'>少数民族
+							<input type="text" class="form-control" ng-show="!shaoshu">
 						</label>
+						{{editingCon.minzu}}
 					</div>
-				</div>
+				</div> 
 				<div class="col-sm-offset-2 col-sm-8" ng-hide="editing">
 					<button class="btn btn-default" ng-click='create()'>新增</button>
 					<button class="btn btn-default" ng-click='xiugai()'>修改</button>

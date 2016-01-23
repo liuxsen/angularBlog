@@ -110,4 +110,36 @@ angular.module('app', [])
 	$scope.create=function(){
 		$scope.editing = true;
 	}
+	$scope.selectGender = function(gender){
+		if(gender == 0){
+			return '女'
+		}
+		if(gender == 1){
+			return '男'
+		}
+	}
+	$scope.selecteProvince = function(province){
+		$scope.selectedProvince = province;
+	}
+	$scope.$watch('selectedProvince',function(province){
+		switch (province) {
+			case '江苏':
+				$scope.cityArr = ['南京','苏州']
+				break;
+			case '江苏':
+				$scope.cityArr = ['昆明','丽江']
+				break;
+			default:
+				// statements_def
+				break;
+		}
+	})
+	$scope.selectMinzu = function(minzu){
+		if(minzu == 0){
+			$scope.minzu = 'hanzu'
+		}
+		if(minzu == 1){
+			$scope.minzu = $scope.shaosu
+		}
+	}
 }])
